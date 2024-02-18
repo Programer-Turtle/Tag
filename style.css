@@ -1,0 +1,22 @@
+body 
+{
+    background: black;
+}
+
+h1
+{
+    color: white;
+    text-align: center;
+}
+
+canvas
+{
+    border: 10px solid white;
+}
+
+.center
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
