@@ -144,12 +144,12 @@ function Draw()
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     //Draws
+    DrawWalls()
     context.fillStyle = 'lime';
     MoveEnemy()
     context.fillRect(Enemy.x, Enemy.y, grid, grid);
     context.fillStyle = 'red';
     context.fillRect(apple.x, apple.y, grid, grid);
-    DrawWalls()
     CheckIfLost()
     points = points+1
     pointdisp.innerText = points;
