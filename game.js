@@ -156,7 +156,7 @@ function MoveRunner()
     //Distance Required
     YDisntance = abosluteValue(apple.x - runner.x)
     XDisntance = abosluteValue(apple.y - runner.y)
-    if (XDisntance >= (4 * grid) && YDisntance >= (4 * grid) || XDisntance <= (1 * grid) && YDisntance <= (1 * grid))
+    if (XDisntance >= (4 * grid) || YDisntance >= (4 * grid) || XDisntance <= (1 * grid) && YDisntance <= (1 * grid))
     {
         return
     }
