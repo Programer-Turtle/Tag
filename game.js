@@ -3,7 +3,12 @@ var context = canvas.getContext('2d');
 
 var counter = 0;
 var lost = false;
-var WallAmount = 30
+var WallAmount = 30;
+
+let up = false;
+let down = false;
+let right = false;
+let left = false;
 
 function SetRandomIcon()
 {
@@ -266,7 +271,7 @@ function CheckIfLost()
 function Draw()
 {
     counter = counter + 1
-    if (counter === 3)
+    if (counter === 4)
     {
         counter = 0
     }
@@ -294,23 +299,47 @@ function Draw()
     CheckIfLost()
 }
 
-document.addEventListener('keydown', function(e) {
-    // prevent snake from backtracking on itself by checking that it's 
-    // not already moving on the same axis (pressing left while moving
-    // left won't do anything, and pressing right while moving left
-    // shouldn't let you collide with your own body)
-    
-    // left arrow key
+document.addEventListener('keydown', function(event){
+    if(event.key == "ArrowUp" || event.key == "w"){
+        up = true;
+    }
+    if(event.key == "ArrowDown" || event.key == "s"){
+        down = true;
+    }
+    if(event.key == "ArrowRight" || event.key == "d"){
+        right = true;
+    }
+    if((event.key == "ArrowLeft" || event.key == "a")){
+        left = true;
+    }
+})
+
+document.addEventListener('keyup', function(event){
+    if(event.key == "ArrowUp" || event.key == "w"){
+        up = false;
+    }
+    if(event.key == "ArrowDown" || event.key == "s"){
+        down = false;
+    }
+    if(event.key == "ArrowRight" || event.key == "d"){
+        right = false;
+    }
+    if((event.key == "ArrowLeft" || event.key == "a")){
+        left = false;
+    }
+})
+
+function Move() {
     if (lost == false)
     {
-        if (e.which === 37 && apple.x !== 0) {
+        if (left == true && apple.x !== 0) {
           if (AllowedToBeAtSpot(apple.x - grid, apple.y))
           {
             apple.x = apple.x - grid;
           }
           Draw()
         }
-        else if (e.which === 38 && apple.y !== 0) {
+        if (up == true && apple.y !== 0) {
           if(AllowedToBeAtSpot(apple.x, apple.y - grid))
           {
             apple.y = apple.y - grid
@@ -318,14 +347,14 @@ document.addEventListener('keydown', function(e) {
           Draw()
         // right arrow key
         }
-        else if (e.which === 39 && apple.x !== 384) {
+        if (right == true && apple.x !== 384) {
           if (AllowedToBeAtSpot(apple.x + grid, apple.y))
           {
             apple.x = apple.x + grid
           }
           Draw()
         }
-        else if (e.which === 40 && apple.y !== 384) {
+        if (down == true && apple.y !== 384) {
           if (AllowedToBeAtSpot(apple.x, apple.y + grid) == true)
           {
             apple.y = apple.y + grid
@@ -333,14 +362,15 @@ document.addEventListener('keydown', function(e) {
           Draw()
         }
     }
-  });
+  }
 
   var i = setInterval(function(){
     if (lost == false)
     {
+        Move()
         Draw()
     }
-}, 150);
+}, 100);
 
 SetRandomIcon()
 GenerateWallCords(WallAmount)
